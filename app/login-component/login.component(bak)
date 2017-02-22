@@ -1,0 +1,34 @@
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+@Component({
+  templateUrl: 'app/login-component/login.component.html'
+})
+
+export class LoginComponent {
+  localUser = {
+    username: '',
+    password: ''
+  }
+
+  constructor (private _service: AuthService, private _router: Router, private route: ActivatedRoute) {
+
+  }
+
+  login() {
+    let checknow = this._service.loginfn(this.localUser);
+      checknow.then((res)=>{
+        if(res)
+          this._router.navigate(['/dashboard']);
+        else
+          console.log('Invalid User 403');
+      })
+  }
+
+  clearfields() {
+    this.localUser.username = '';
+    this.localUser.password = '';
+  }
+
+}
