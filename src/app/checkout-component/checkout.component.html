@@ -1,0 +1,95 @@
+<app-header [totalQuantity] = "total_qty"></app-header>
+
+<div class="row">
+	<div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+		<h1>Checkout</h1>
+		<h4>Your Total: ${{totalCartPrice}}</h4>
+
+		<!--
+		<div id="charge-error" class="alert alert-danger {{#if noError}}hidden{{/if}}">
+			{{errMsg}}
+		</div>
+		-->
+
+		<form accept-charset="UTF-8" role="form" #shoppingCartCheckoutForm="ngForm" (ngSubmit)="createToken()" id="shoppingCartCheckoutForm">
+			<div class="row">
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Name on credit card</label>
+						<input class="form-control" type="text" id="cardName" name="cardName" [(ngModel)]="checkoutOrderInfo.name">
+					</div>
+				</div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Address Line 1</label>
+						<input class="form-control" type="text" id="addressLine1" name="addressLine1" [(ngModel)]="checkoutOrderInfo.addressLine1">
+					</div>
+				</div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Address Line 2</label>
+						<input class="form-control" type="text" id="addressLine2" name="addressLine2" [(ngModel)]="checkoutOrderInfo.addressLine2">
+					</div>
+				</div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Address City</label>
+						<input class="form-control" type="text" id="addressCity" name="addressCity" [(ngModel)]="checkoutOrderInfo.addressCity">
+					</div>
+				</div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Address State</label>
+						<input class="form-control" type="text" id="addressState" name="addressState" [(ngModel)]="checkoutOrderInfo.addressState">
+					</div>
+				</div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Address Zip</label>
+						<input class="form-control" type="text" id="addressZip" name="addressZip" [(ngModel)]="checkoutOrderInfo.addressZip">
+					</div>
+				</div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label>Address Country</label>
+						<input class="form-control" type="text" id="addressCountry" name="addressCountry" [(ngModel)]="checkoutOrderInfo.addressCountry">
+					</div>
+                </div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label for="cardNumber-element">Card Number</label>
+                        <div id="cardNumber-element">
+                            <!-- a Stripe Element will be inserted here. -->
+                        </div>
+					</div>
+                </div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label for="cardExpiry-element">Card Expiry</label>
+                        <div id="cardExpiry-element">
+                            <!-- a Stripe Element will be inserted here. -->
+                        </div>
+					</div>
+                </div>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label for="cardCvc-element">CVC</label>
+                        <div id="cardCvc-element">
+                            <!-- a Stripe Element will be inserted here. -->
+                        </div>
+					</div>
+                </div>
+				<hr>
+                <div class="col-xs-12">
+					<div class="form-group">
+				        <label for="postalCode-element">Zip Code</label>
+                        <div id="postalCode-element">
+                            <!-- a Stripe Element will be inserted here. -->
+                        </div>
+					</div>
+                </div>
+			</div>
+			<button type="submit" class="btn btn-success">Buy now</button>
+		</form>
+	</div>
+</div>

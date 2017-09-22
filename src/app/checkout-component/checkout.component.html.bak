@@ -1,0 +1,67 @@
+<app-header [totalQuantity] = "total_qty"></app-header>
+
+<div class="row">
+	<div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+		<h1>Checkout</h1>
+		<h4>Your Total: ${{totalCartPrice}}</h4>
+
+		<!--
+		<div id="charge-error" class="alert alert-danger {{#if noError}}hidden{{/if}}">
+			{{errMsg}}
+		</div>
+		-->
+
+		<form accept-charset="UTF-8" role="form" [formGroup]="shoppingCartCheckoutForm" (ngSubmit)="shoppingCartCheckout()" id="checkout-form">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" id="name" name="name" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutName']" required>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="address">Address</label>
+						<input type="text" id="address" name="address" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutAddress']" required>
+					</div>
+				</div>
+				<hr>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="card-name">Card Holder Name</label>
+						<input type="text" id="card-name" name="card-name" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutCardName']" required>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="card-number">Credit Card Number</label>
+						<input type="text" id="card-number" name="card-number" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutCardNumber']" required>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="card-expiry-month">Expiration Month</label>
+								<input type="text" id="card-expiry-month" name="card-expiry-month" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutCardExpiryMonth']" required>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="card-expiry-year">Expiration Year</label>
+								<input type="text" id="card-expiry-year" name="card-expiry-year" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutCardExpiryYear']" required>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="card-cvc">CVC</label>
+						<input type="text" id="card-cvc" name="card-cvc" class="form-control" [formControl]="shoppingCartCheckoutForm.controls['checkoutCardCVC']" required>
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success">Buy now</button>
+		</form>
+	</div>
+</div>
