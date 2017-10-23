@@ -1,0 +1,45 @@
+<app-header [totalQuantity] = "total_qty"></app-header>
+<div class="row">
+    <div class="col-sm-12">
+        <form [formGroup]="updateCartForm" novalidate (ngSubmit)="updateCart(updateCartForm)">
+            <div formArrayName="carts">
+            <div *ngFor="let cart of updateCartForm.controls.carts.controls; let i=index">
+            <div class="row">
+                <div [formGroupName]="i">
+                <div class="col-sm-3">
+                        <div class="form-group">
+                                <label>Product</label>
+                                <input type="text" class="form-control" formControlName="productName">
+                        </div>
+                </div>
+                <div class="col-sm-2">
+                        <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" class="form-control" formControlName="productQuantity" #prdQty>
+                        </div>
+                </div>
+                <div class="col-sm-2">
+                        <div class="form-group">
+                                <label>Price</label>
+                                <input type="text" class="form-control" formControlName="productPrice" #prdPrice>
+                        </div>
+                </div>
+                <div class="col-sm-3">
+                        <div class="form-group">
+                                <label>Total Price</label>
+                                <input type="text" class="form-control" formControlName="productTotalPrice" value="{{prdQty.value * prdPrice.value}}">
+                        </div>
+                </div>
+                <div class="col-sm-2">
+                        <div class="form-group">
+                        <button class="btn btn-danger" role="button" (click)="removeAll(i)"><span class="glyphicon glyphicon-remove"></span>Remove</button>
+                        </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right">Update</button>
+        </form>
+    </div>
+</div>
