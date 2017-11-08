@@ -1,0 +1,74 @@
+<app-header [totalQuantity] = "total_qty"></app-header>
+<ng-template [ngIf] = "total_qty!=0"> <!-- if there are items in shopping cart -->
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor = "let cartItem of cartItems"> <!-- loops through the items to be displayed -->
+            <tr>
+                <td class="col-sm-6">
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading">{{cartItem.item.title}}</h4>
+                        <h5 class="media-heading"> by Brand name</h5>
+                    </div>
+                </div></td>
+                <td class="col-sm-2"><strong>{{cartItem.qty}}</strong></td>
+                <td class="col-sm-2 text-right"><strong>${{cartItem.item.price}}</strong></td>
+                <td class="col-sm-2 text-right"><strong>${{cartItem.price}}</strong></td>
+
+            </tr>
+            </ng-container>
+
+            <!--
+            <td class="col-sm-1 col-md-1" style="text-align: center">
+                <input type="number" class="form-control" id="item_quantity" value="{{cartItem.qty}}">
+            </td>
+            -->
+
+            <tr>
+                <td class="col-sm-6">   </td>
+                <td class="col-sm-2">   </td>
+                <td class="text-right col-sm-2"><h5>Subtotal</h5></td>
+                <td class="text-right col-sm-2"><h5><strong>${{cartTotalPrice}}</strong></h5></td>
+            </tr>
+            <tr>
+                <td class="col-sm-6">   </td>
+                <td class="col-sm-2">   </td>
+                <td class="text-right col-sm-2"><h5>Estimated shipping</h5></td>
+                <td class="text-right col-sm-2"><h5><strong>$0</strong></h5></td>
+            </tr>
+            <tr>
+                <td class="col-sm-6">   </td>
+                <td class="col-sm-2">   </td>
+                <td class="text-right col-sm-2"><h3>Total</h3></td>
+                <td class="text-right col-sm-2"><h3><strong>${{cartTotalPrice}}</strong></h3></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <a routerLink="/checkout" routerLinkActive="active" type="button" class="btn btn-success pull-right">Checkout</a>
+            <a routerLink="/home" routerLinkActive="active" type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-shopping-cart"></span>Continue Shopping</a>
+            <a routerLink="/update_cart" routerLinkActive="active" type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-shopping-cart"></span>Update Cart</a>    
+            
+</div>
+</div>
+
+
+</ng-template>
+<ng-template [ngIf] = "total_qty==0"> <!-- if there are no items in shopping cart -->
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <h2>No Items in Cart</h2>
+    </div>
+</div>
+</ng-template>
