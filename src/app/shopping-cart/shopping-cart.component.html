@@ -1,0 +1,99 @@
+<app-header [totalQuantity] = "total_qty"></app-header>
+<ng-container *ngIf = "total_qty!=0"> <!-- if there are items in shopping cart -->
+<form [formGroup]="updateCartForm" novalidate (ngSubmit)="updateCart(updateCartForm)">
+    <div formArrayName="carts">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><h4>Product</h4></th>
+                <th><h4>Quantity</h4></th>
+                <th class="text-right"><h4>Price</h4></th>
+                <th class="text-right"><h4>Total</h4></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let cart of updateCartForm.controls.carts.controls; let i=index"> <!-- loops through the items to be displayed -->
+            <tr [formGroupName]="i">
+                <td class="col-sm-5">
+                    <div class="form-group">
+                        <label class="control-label">{{updateCartForm.controls.carts.controls[i].controls.productName.value}}</label>
+                    </div>
+                </td>
+                <td class="col-sm-2">
+                    <div class="form-group">
+                        <input type="number" min = "1" step = "1" style="width: 6em" class="form-control" formControlName="productQuantity" #prdQty>
+                    </div>
+                </td>
+                <td class="col-sm-2 text-right">
+                    <div class="form-group">
+                        <label class="control-label">{{updateCartForm.controls.carts.controls[i].controls.productPrice.value}}</label>
+                    </div>     
+                </td>
+                <td class="col-sm-2 text-right">
+                    <div class="form-group">
+                        <label class="control-label">{{prdQty.value * updateCartForm.controls.carts.controls[i].controls.productPrice.value}}</label>
+                    </div> 
+                </td>
+                <td class="col-sm-1">
+                    <a class="buttonlink pull-right" (click)="removeAll(i)"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+
+            </tr>
+            </ng-container>
+
+            <!--
+            <td class="col-sm-1 col-md-1" style="text-align: center">
+                <input type="number" class="form-control" id="item_quantity" value="{{cartItem.qty}}">
+            </td>
+            -->
+            <tr>
+                    <td class="col-sm-5">   </td>
+                    <td class="col-sm-2">   </td>
+                    <td class="col-sm-2">   </td>
+                    <td class="col-sm-2">   </td>
+                    <td class="col-sm-1">   </td>
+            </tr>
+
+            <tr>
+                <td class="col-sm-5">   </td>
+                <td class="col-sm-2">   </td>
+                <td class="text-right col-sm-2"><h5>Subtotal</h5></td>
+                <td class="text-right col-sm-2"><h5><strong>${{cartTotalPrice}}</strong></h5></td>
+                <td class="col-sm-1">   </td>
+            </tr>
+            <tr>
+                <td class="col-sm-5">   </td>
+                <td class="col-sm-2">   </td>
+                <td class="text-right col-sm-2"><h5>Shipping</h5></td>
+                <td class="text-right col-sm-2"><h5><strong>$0</strong></h5></td>
+                <td class="col-sm-1">   </td>
+            </tr>
+            <tr>
+                <td class="col-sm-5">   </td>
+                <td class="col-sm-2">   </td>
+                <td class="text-right col-sm-2"><h3>Total</h3></td>
+                <td class="text-right col-sm-2"><h3><strong>${{cartTotalPrice}}</strong></h3></td>
+                <td class="col-sm-1">   </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a routerLink="/checkout" routerLinkActive="active" type="button" class="btn btn-success pull-right">Checkout</a>
+            <button type="submit" class="btn btn-default pull-right"><span class="glyphicon glyphicon-shopping-cart"></span>Update Cart</button>            
+        </div>
+    </div>
+</form>
+
+
+</ng-container>
+<ng-container *ngIf = "total_qty==0"> <!-- if there are no items in shopping cart -->
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <h2>No Items in Cart</h2>
+    </div>
+</div>
+</ng-container>

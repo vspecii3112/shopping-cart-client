@@ -1,0 +1,185 @@
+<app-header [totalQuantity] = "total_qty"></app-header>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Order Summary
+	</div>
+	<div class="panel-body">
+			<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><h4>Product</h4></th>
+							<th><h4>Quantity</h4></th>
+							<th class="text-right"><h4>Price</h4></th>
+							<th class="text-right"><h4>Total</h4></th>
+						</tr>
+					</thead>
+					<tbody>
+						<ng-container *ngFor="let cartItem of cartItems"> <!-- loops through the items to be displayed -->
+						<tr>
+							<td class="col-sm-6">
+								<div class="form-group">
+									<label class="control-label">{{cartItem.item.title}}</label>
+								</div>
+							</td>
+							<td class="col-sm-2">
+								<div class="form-group">
+									<label class="control-label">{{cartItem.qty}}</label>
+								</div>
+							</td>
+							<td class="col-sm-2 text-right">
+								<div class="form-group">
+									<label class="control-label">{{cartItem.item.price}}</label>
+								</div>     
+							</td>
+							<td class="col-sm-2 text-right">
+								<div class="form-group">
+									<label class="control-label">{{cartItem.qty * cartItem.item.price}}</label>
+								</div> 
+							</td>
+						</tr>
+						</ng-container>
+						<tr>
+							<td class="col-sm-6">   </td>
+							<td class="col-sm-2">   </td>
+							<td class="text-right col-sm-2"><h5>Subtotal</h5></td>
+							<td class="text-right col-sm-2"><h5><strong>${{cartTotalPrice}}</strong></h5></td>
+						</tr>
+						<tr>
+							<td class="col-sm-6">   </td>
+							<td class="col-sm-2">   </td>
+							<td class="text-right col-sm-2"><h5>Shipping</h5></td>
+							<td class="text-right col-sm-2"><h5><strong>$0</strong></h5></td>
+						</tr>
+						<tr>
+							<td class="col-sm-6">   </td>
+							<td class="col-sm-2">   </td>
+							<td class="text-right col-sm-2"><h3>Total</h3></td>
+							<td class="text-right col-sm-2"><h3><strong>${{cartTotalPrice}}</strong></h3></td>
+						</tr>
+			
+					</tbody>
+				</table>
+	</div>
+</div>
+    
+
+<div class="row">
+	<form accept-charset="UTF-8" class="form-horizontal" role="form" #shoppingCartCheckoutForm="ngForm" (ngSubmit)="createToken()" id="shoppingCartCheckoutForm">
+		<div class="col-sm-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Shipping Address
+				</div>
+				<div class="panel-body">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Full Name</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text" placeholder="Full Name" id="cardName" name="cardName" [(ngModel)]="checkoutOrderInfo.name">
+									</div>
+								</div>
+			
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Address Line 1</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text"  placeholder="Address Line 1" id="addressLine1" name="addressLine1" [(ngModel)]="checkoutOrderInfo.addressLine1">
+									</div>
+								</div>
+			
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Address Line 2</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text" placeholder="Address Line 2" id="addressLine2" name="addressLine2" [(ngModel)]="checkoutOrderInfo.addressLine2">
+									</div>
+								</div>
+			
+								<div class="form-group">
+									<label class="col-sm-3 control-label">City</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text" placeholder="City" id="addressCity" name="addressCity" [(ngModel)]="checkoutOrderInfo.addressCity">
+									</div>
+								</div>
+			
+			
+								<div class="form-group">
+									<label class="col-sm-3 control-label">State/Province</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text" placeholder="State/Province/Region" id="addressState" name="addressState" [(ngModel)]="checkoutOrderInfo.addressState">
+									</div>
+								</div>
+			
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Zip/Postal Code</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text" placeholder="Zip/Postal Code" id="addressZip" name="addressZip" [(ngModel)]="checkoutOrderInfo.addressZip">
+									</div>
+								</div>
+			
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Country</label>
+									<div class="col-sm-9">
+										<input class="form-control" type="text" placeholder="Country" id="addressCountry" name="addressCountry" [(ngModel)]="checkoutOrderInfo.addressCountry">
+									</div>
+								</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Credit Card Details
+				</div>
+				<div class="panel-body">
+						<div class="form-group">
+								<label class="col-sm-3 control-label" for="cardNumber-element">Card Number</label>
+								<div class="col-sm-9">
+									<div class="form-control" id="cardNumber-element">
+									<!-- a Stripe Element will be inserted here. -->
+									</div>
+								</div>
+							</div>
+		
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="cardExpiry-element">Card Expiry</label>
+								<div class="col-sm-9">
+									<div class="form-control" id="cardExpiry-element">
+										<!-- a Stripe Element will be inserted here. -->
+									</div>
+								</div>
+							</div>
+		
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="cardCvc-element">CVC</label>
+								<div class="col-sm-9">
+									<div class="form-control" id="cardCvc-element">
+										<!-- a Stripe Element will be inserted here. -->
+									</div>
+								</div>
+							</div>
+		
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="postalCode-element">Zip/Postal Code</label>
+								<div class="col-sm-9">
+									<div class="form-control" id="postalCode-element">
+										<!-- a Stripe Element will be inserted here. -->
+									</div>
+								</div>
+							</div>
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Total Payment: ${{cartTotalPrice}}
+					</div>
+					<div class="panel-body text-center">
+						<button type="submit" class="btn btn-success">Buy now</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</form>
+</div>
