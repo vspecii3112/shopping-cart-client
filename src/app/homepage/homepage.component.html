@@ -1,0 +1,23 @@
+
+<div class="row">
+<app-header [totalQuantity] = "total_qty"></app-header>
+</div>
+<br><br><br><br>
+<div class="row">
+<div *ngFor = "let coin of coins; let i=index" id="listOfCoins" name="listOfCoins">
+  <div class="thumbnail col-sm-3">
+    <img src="/assets/images/{{coin.imagePath}}" alt="..." class="img-responsive img-thumbnail" style="width:75%">
+    <div class="caption text-center">
+      <h4>{{coin.title}}</h4>
+      <p>{{coin.description}}</p>
+      <div class="clearfix">
+        <div class="price">
+          <p>${{coin.price}}</p>
+        </div>
+        <input type="number" class="text-center" style="width: 4em" size="3" min = "1" max = "999" step="1" id = "itemQty" name = "itemQty" value = "1" maxlength = "3" #itemQty>
+        <button class="btn btn-success" role="button" id="addItemButton" name="addItemButton" (click)="addItemToCart(coin._id, itemQty.value)">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

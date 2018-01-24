@@ -1,0 +1,51 @@
+<div class="row">
+<app-header [totalQuantity] = "total_qty"></app-header>
+</div>
+<br><br><br><br>
+
+<div class="row">
+    <div class="row">
+        <fieldset>
+                <legend>Purchase History</legend>
+            </fieldset>
+    </div>
+        <div *ngFor = "let order of orders">
+            <div class="row">
+                <nav><a routerLink="/purchase_history/order_details/{{order._id}}">Order Details</a></nav>
+            </div>
+            <div class ="row">
+                        
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr class="active">
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor = "let item of order.cart.items">
+                                    <tr>
+                                        <td class="col-sm-4">
+                                            {{item.item.title}}
+                                        </td>
+                                        <td class="col-sm-2">
+                                            {{item.qty}}
+                                        </td>
+                                        <td class="col-sm-3">
+                                            ${{item.item.price}}
+                                            </td>
+                                        <td class="col-sm-3">
+                                            {{order.date}}
+                                        </td>
+                                    </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                    </div>
+                        
+
+        </div>
+</div>
+
