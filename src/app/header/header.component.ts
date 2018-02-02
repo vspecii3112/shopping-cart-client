@@ -25,11 +25,9 @@ export class HeaderComponent implements OnInit{
       this._userService.isLoggedIn()
         .subscribe(data => {
           if(data.authenticated) {
-            console.log('logged in');
             this.loggedIn = true;
           }
           else {
-            console.log('not logged in')
             this.loggedIn = false;
           }
         },
@@ -47,7 +45,7 @@ export class HeaderComponent implements OnInit{
               this.checkAuthentication();   //Checks the authentication of the user to get the latest update so that Angular will re-render the page when it reloads the same URL.
               this._router.navigate(['/home']);
           },
-          err => console.log('error logging out'),
+          err => console.log('Internal server error'),
           () => console.log('logout complete')
         )
     }

@@ -11,10 +11,13 @@ import { ShoppingCartService } from '../services/shopping.cart.service';
 })
 export class ShoppingCartComponent implements OnInit {
 
+  private updateCartForm: FormGroup; //our form model
+  private cartItems: any = [];    //this array variable stores the shopping cart item objects
+  private cartTotalPrice: number = 0; //this variable stores the total price of all the items in the shopping cart
+  private total_qty: number = 0;  // this variable stores the total quantity
+
   constructor(private shoppingcart: ShoppingCartService, private _router: Router, private _fb: FormBuilder) {
   }
-
-  public updateCartForm: FormGroup; //our form model
 
   ngOnInit() {
 
@@ -24,13 +27,19 @@ export class ShoppingCartComponent implements OnInit {
         this.initCartForm(),
       ])
     });
-
     this.shoppingCartItems();
-  }
 
-  cartItems: any = [];    //this array variable stores the shopping cart item objects
-  cartTotalPrice: number = 0; //this variable stores the total price of all the items in the shopping cart
-  total_qty: number = 0;  // this variable stores the total quantity
+    this.updateCartForm.valueChanges
+      .debounceTime(1500)
+      .distinctUntilChanged()
+      .subscribe(data => {
+        this.cartTotalPrice = 0;
+        for(let i=0; i<data.carts.length; i++) {
+          this.cartTotalPrice = this.cartTotalPrice + (data.carts[i].productQuantity * data.carts[i].productPrice);
+        }
+        //console.log(data);
+    });
+  }
 
   initCartForm() {
     return this._fb.group({
@@ -71,7 +80,7 @@ export class ShoppingCartComponent implements OnInit {
             //this.updateCartForm.value.carts[0].productName = this.cartItems[0].item.title;
             this.clearCartFirstItem();
             this.showCartItems(this.cartItems);
-            console.log(this.cartItems);
+            //console.log(this.cartItems);
           }
           else {
             this.clearCartFirstItem();
@@ -85,7 +94,7 @@ export class ShoppingCartComponent implements OnInit {
       )
   }
 
-  removeAll(i: number) {
+  removeItem(i: number) {
     // remove address from the list
     const control = <FormArray>this.updateCartForm.controls['carts'];
     control.removeAt(i);
@@ -102,7 +111,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   updateCart(cartForm: any) {
-    console.log(cartForm);
+    //console.log(cartForm);
     if (!this.isFormValid(cartForm)) {
       console.log("Invalid Quantity");
     }
@@ -120,7 +129,6 @@ export class ShoppingCartComponent implements OnInit {
         if (data.success) {
           this.total_qty = data.totalQuantity;
           this.cartTotalPrice = data.totalPrice;
-          console.log('update success');
         }
       },
       err => console.log(err),

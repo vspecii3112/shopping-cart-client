@@ -18,5 +18,9 @@ export class HomePage {
   addItemButton(index: number) {
     return element.all(by.id('listOfCoins')).get(index).element(by.id('addItemButton'));
   }
+
+  cartLink() {
+    return element(by.id("cartLink"))
+  }
   
 }

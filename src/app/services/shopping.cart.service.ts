@@ -54,7 +54,7 @@ export class ShoppingCartService {
 
     updateCart(updateCart: any) {
         let bodyString = JSON.stringify(updateCart);
-        console.log(bodyString);
+        //console.log(bodyString);
         let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this._http.post(this.domain.url + '/cart_update', bodyString, {headers: headers, withCredentials: true})
             .catch(error => Observable.throw(error.json()));

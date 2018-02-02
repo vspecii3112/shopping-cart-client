@@ -62,7 +62,7 @@ export class HomepageComponent implements OnInit{
               this.total_qty = data.msg.totalQty;
             },
             err => console.log('error adding coins to cart'),
-            () => console.log('complete adding coins to cart')
+            () => console.log('complete adding item to cart')
           )
       }
     }

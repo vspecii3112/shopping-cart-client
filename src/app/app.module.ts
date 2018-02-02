@@ -17,6 +17,7 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ForgotUserPasswordComponent } from './forgot-user-password/forgot-user-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FooterComponent } from './footer/footer.component';
 
 import { UserService } from './services/user.service';
 import { ShoppingCartService } from './services/shopping.cart.service';
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     OrderConfirmationComponent,
     OrderDetailsComponent,
     ForgotUserPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

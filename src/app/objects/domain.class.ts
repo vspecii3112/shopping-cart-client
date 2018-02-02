@@ -1,4 +1,4 @@
 export class Domain {
-    url: string = "https://cstoreapi.herokuapp.com";     // http://localhost:3333 , https://cstoreapi.herokuapp.com;
+    url: string = "http://localhost:3333";     // http://localhost:3333 , https://cstoreapi.herokuapp.com;
 
 }
