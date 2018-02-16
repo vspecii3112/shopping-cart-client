@@ -13,6 +13,7 @@ export class ShoppingCartComponent implements OnInit {
 
   private updateCartForm: FormGroup; //our form model
   private cartItems: any = [];    //this array variable stores the shopping cart item objects
+  private qtyMsg: any = [];
   private cartTotalPrice: number = 0; //this variable stores the total price of all the items in the shopping cart
   private total_qty: number = 0;  // this variable stores the total quantity
 
@@ -30,14 +31,30 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartItems();
 
     this.updateCartForm.valueChanges
-      .debounceTime(1500)
+      .debounceTime(500)
       .distinctUntilChanged()
       .subscribe(data => {
-        this.cartTotalPrice = 0;
+        var valid: boolean = true;
+        var totalPrice: number = 0;
+        this.qtyMsg = [];
+
+        //this will automatically update the total price and the store session
         for(let i=0; i<data.carts.length; i++) {
-          this.cartTotalPrice = this.cartTotalPrice + (data.carts[i].productQuantity * data.carts[i].productPrice);
+          //checks if the quantity value is valid
+          if (Number(data.carts[i].productQuantity) < 1 || !Number.isInteger(Number(data.carts[i].productQuantity))) {
+            this.qtyMsg[i] = "invalid input";
+            valid = false;
+          }
+          totalPrice = totalPrice + (data.carts[i].productQuantity * data.carts[i].productPrice);
         }
+        //console.log(this.updateCartForm);
         //console.log(data);
+        if (valid) {
+          this.cartTotalPrice = totalPrice;
+          if (this.total_qty > 0) {
+            this.updateCart(data);
+          }
+        }
     });
   }
 
@@ -102,8 +119,8 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   isFormValid(cartForm: any): boolean {
-    for (let i=0; i<cartForm.controls.carts.length; i++) {
-      if (Number(cartForm.controls.carts.controls[i].controls.productQuantity.value) < 1 || !Number.isInteger(Number(cartForm.controls.carts.controls[i].controls.productQuantity.value))) {
+    for (let i=0; i<cartForm.carts.length; i++) {
+      if (Number(cartForm.carts[i].productQuantity) < 1 || !Number.isInteger(Number(cartForm.carts[i].productQuantity))) {
         return false;
       }
     }
@@ -117,19 +134,17 @@ export class ShoppingCartComponent implements OnInit {
     }
     else {
 
-    for (let i=0; i<cartForm.controls.carts.length; i++) {
-      this.cartItems[i].qty = cartForm.controls.carts.controls[i].controls.productQuantity.value;
-      this.cartItems[i].price = cartForm.controls.carts.controls[i].controls.productQuantity.value * cartForm.controls.carts.controls[i].controls.productPrice.value;
+    for (let i=0; i<cartForm.carts.length; i++) {
+      this.cartItems[i].qty = cartForm.carts[i].productQuantity;
+      this.cartItems[i].price = cartForm.carts[i].productQuantity * cartForm.carts[i].productPrice;
     }
     //console.log(this.cartItems);
     
     this.shoppingcart.updateCart(this.cartItems)
     .subscribe(
       data => {
-        if (data.success) {
-          this.total_qty = data.totalQuantity;
-          this.cartTotalPrice = data.totalPrice;
-        }
+        this.total_qty = data.totalQuantity;
+        this.cartTotalPrice = data.totalPrice;
       },
       err => console.log(err),
       () => console.log('Update cart complete')

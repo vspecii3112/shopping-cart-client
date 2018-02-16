@@ -17,3 +17,11 @@
 .vertical-middle {
     vertical-align: middle;
 }
+
+.padding-top {
+    padding-top: 25px;
+}
+
+.padding-bottom {
+    padding-bottom: 25px;
+}

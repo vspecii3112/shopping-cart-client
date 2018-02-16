@@ -1,19 +1,16 @@
-<div class="row">
 <app-header [totalQuantity] = "total_qty"></app-header>
-</div>
-<br><br><br><br>
+<div class="container padding-top padding-bottom">
+        <div class="row">
+                <div class="col-sm-12 text-center">
+                    <h3>Purchase History</h3>
+                </div>
+            </div><br>
 
-<div class="row">
-    <div class="row">
-        <fieldset>
-                <legend>Purchase History</legend>
-            </fieldset>
-    </div>
         <div *ngFor = "let order of orders">
-            <div class="row">
+
                 <nav><a routerLink="/purchase_history/order_details/{{order._id}}">Order Details</a></nav>
-            </div>
-            <div class ="row">
+
+
                         
                             <table class="table table-condensed table-bordered">
                                 <thead>
@@ -43,7 +40,7 @@
                                     </ng-container>
                                 </tbody>
                             </table>
-                    </div>
+
                         
 
         </div>

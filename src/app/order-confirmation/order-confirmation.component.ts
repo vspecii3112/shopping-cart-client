@@ -29,7 +29,7 @@ export class OrderConfirmationComponent implements OnInit {
   constructor( private user: UserService, private shoppingCart: ShoppingCartService, private _activatedRoute: ActivatedRoute) {
     this._activatedRoute.params.subscribe( params => {
       this.orderID = params.id;
-      console.log(this.orderID);
+      //console.log(this.orderID);
     });
   }
 
@@ -59,7 +59,7 @@ export class OrderConfirmationComponent implements OnInit {
         this.orders = data.orderDetails.cart.items;
         this.subTotal = data.orderDetails.cart.totalPrice;
         this.date = data.orderDetails.date;
-        console.log(data.orderDetails);
+        //console.log(data.orderDetails);
 
       },
       err => {},

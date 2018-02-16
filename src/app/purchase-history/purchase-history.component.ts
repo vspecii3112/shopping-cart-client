@@ -41,7 +41,7 @@ export class PurchaseHistoryComponent implements OnInit {
       .subscribe(
         data => {
           this.orders = data.customerOrders;
-          console.log(data.customerOrders);
+          //console.log(data.customerOrders);
 
           //The below code puts the individual items in the cart in an array to use in Angular ngFor loop in html page
           //****************************************************************** */
@@ -58,7 +58,7 @@ export class PurchaseHistoryComponent implements OnInit {
             this.orders[i].cart.items = this.itemsInCart[i];
           }
           //******************************************************************* */
-          console.log(this.orders);
+          //console.log(this.orders);
         },
         err => {
             this._router.navigate(['/login']);

@@ -11,7 +11,11 @@ import { coin } from '../objects/coin.class';
 })
 
 export class HomepageComponent implements OnInit{
-  
+
+  private coins: coin[] = null;   //the coins array variable stores the coin objects
+  private total_qty: number = 0;    //stores the number of items in the variable and this number is shown beside the shopping cart link
+  private total_price: number = 0;  //stores the total price of the shopping cart and this number is shown beside the shopping cart link
+
     constructor(private loadCoinInfo: LoadCoinInfoService, private shoppingCart: ShoppingCartService) {
     }
   
@@ -20,9 +24,6 @@ export class HomepageComponent implements OnInit{
       this.getTotalQuantity();
     }
 
-    coins: coin[] = null;   //the coins array variable stores the coin objects
-    total_qty: number = 0;    //stores the number of items in the variable and this number is shown beside the shopping cart link
-  
     //The displayAllCoins function will display the coins available from the mongoDB backend
     displayAllCoins(){
       this.loadCoinInfo.getCoins()    //getCoins observable gets the coins from the mongoDB backend and stores it into the coins array
@@ -59,7 +60,8 @@ export class HomepageComponent implements OnInit{
         this.shoppingCart.addItem(coinID, itemQty)
           .subscribe(
             data => {
-              this.total_qty = data.msg.totalQty;
+              this.total_qty = data.totalQuantity;
+              this.total_price = data.totalPrice;
             },
             err => console.log('error adding coins to cart'),
             () => console.log('complete adding item to cart')

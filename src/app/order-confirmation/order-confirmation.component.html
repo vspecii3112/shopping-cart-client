@@ -1,36 +1,34 @@
-<div class="row">
-  <app-header [totalQuantity] = "total_qty"></app-header>
-</div>
-<br><br><br><br>
-<div class="row">
+<app-header [totalQuantity] = "total_qty"></app-header>
+<div class="container padding-top padding-bottom">
   <fieldset>
     <legend>Your order has been received.</legend>
   </fieldset>
-</div>
-<div class="row">
-  Your order ID is {{orderID}}
-</div><br>
 
-<div class="row">
-  <div class="panel panel-default">
-      <div class="panel-body">
+  <div class="row">
+    <div class="col-sm-12">
+      Your order ID is {{orderID}}
+    </div>
+  </div><br>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
           <strong>Shipping Address</strong><br><br>
           <strong>{{name}}</strong><br>
           {{shippingAddress.addressLine1}}<br>
           {{shippingAddress.addressLine2}}<br>
           {{shippingAddress.addressCity}}, {{shippingAddress.addressState}}, {{shippingAddress.addressZip}}<br>
           {{shippingAddress.addressCountry}}<br>
+        </div>
       </div>
     </div>
   </div>
-
-<div class="row">
-
           <table class="table table-condensed table-bordered no-margin-bottom">
               <thead>
                   <tr class="active">
                       <th>Product</th>
-                      <th>Price</th>
+                      <th class="text-right">Price</th>
                       <th class="text-right">Quantity</th>
                       <th class="text-right">Total</th>
                   </tr>
@@ -39,25 +37,30 @@
                   <ng-container *ngFor="let order of orders">
                     <tr>
                       <td class="col-sm-6">
-                        {{order.item.title}}
+                        <div class="media">
+                          <div class="media-left">
+                            <img class="media-object" src="/assets/images/{{order.item.imagePath}}" style="width: 80px; height: 80px;">
+                          </div>
+                          <div class="media-body">
+                            {{order.item.title}}
+                          </div>
+                        </div>
                       </td>
                       <td class="col-sm-2 text-right">
-                        ${{order.price}}
+                        ${{order.item.price}}
 
                       </td>
                       <td class="col-sm-2 text-right">
                         {{order.qty}}
                       </td>
                       <td class="col-sm-2 text-right">
-                        ${{order.price * order.qty}}
+                        ${{order.item.price * order.qty}}
                       </td>
                   </tr>
                   </ng-container>
                 </tbody>
               </table>
-  </div>
 
-  <div class="row">
       <table class="table table-condensed table-bordered">
         <tbody>
       
@@ -75,7 +78,4 @@
                   </tr>
               </tbody>
           </table>
-
-
-  </div>
-
+</div>

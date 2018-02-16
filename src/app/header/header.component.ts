@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit{
     loggedIn: boolean = false;
     title: string = 'Bullion Coins Store';
   
-    @Input() totalQuantity: number;   //gets the total quantity from the parent(hompage.component.ts)
+    @Input() totalQuantity: number;   //gets the total quantity from the parent
   
     checkAuthentication(){
       this._userService.isLoggedIn()

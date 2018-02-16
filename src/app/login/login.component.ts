@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit{
 
   login(_loginForm: FormGroup) {
     this.clearMsg();
-    console.log(_loginForm);
+    //console.log(_loginForm);
     if(!_loginForm.valid) {
       if (!_loginForm.controls.username.value) {
         this.usernameMsg = "Username is required";
