@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { UserService } from '../services/user.service';
 
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from "../store/model";
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,8 +12,11 @@ import { UserService } from '../services/user.service';
 })
 export class HeaderComponent implements OnInit{
   
-    constructor(private _userService: UserService,  private _router: Router) {
-    }
+    constructor(
+      private _userService: UserService,
+      private _router: Router,
+      private ngRedux: NgRedux<IAppState>
+    ) {}
   
     ngOnInit(){
       this.checkAuthentication();
@@ -42,6 +48,7 @@ export class HeaderComponent implements OnInit{
       this._userService.logoutfn()
         .subscribe(
           data => {
+              this.ngRedux.dispatch({type: "LOGOUT"});
               this.checkAuthentication();   //Checks the authentication of the user to get the latest update so that Angular will re-render the page when it reloads the same URL.
               this._router.navigate(['/home']);
           },

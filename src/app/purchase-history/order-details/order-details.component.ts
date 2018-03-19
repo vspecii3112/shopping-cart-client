@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
-import { UserService } from '../services/user.service';
-import { ShoppingCartService } from '../services/shopping.cart.service';
+import { UserService } from '../../services/user.service';
+import { ShoppingCartService } from '../../services/shopping.cart.service';
 
-import { address } from '../objects/address.class';
+import { address } from '../../objects/address.class';
 
 @Component({
   selector: 'app-order-details',
@@ -13,6 +13,7 @@ import { address } from '../objects/address.class';
 export class OrderDetailsComponent implements OnInit {
 
   private orderID: string = '';
+  private orderExist: boolean = true;
   private name: string ='';
   private shippingAddress: address = {
     addressLine1: '',
@@ -27,12 +28,15 @@ export class OrderDetailsComponent implements OnInit {
   private date: string = '';
   private total_qty: number = 0;    //stores the number of items in the variable and this number is shown beside the shopping cart link
 
-  constructor( private user: UserService, private shoppingCart: ShoppingCartService, private _activatedRoute: ActivatedRoute) {
-    this._activatedRoute.params.subscribe( params => {
-      this.orderID = params.id;
-      //console.log(this.orderID);
-    });
-  }
+  constructor(
+    private user: UserService,
+    private shoppingCart: ShoppingCartService,
+    private _activatedRoute: ActivatedRoute) {
+      this._activatedRoute.params.subscribe( params => {
+        this.orderID = params.id;
+        //console.log(this.orderID);
+      });
+    }
 
   ngOnInit() {
     this.getTotalQuantity();
@@ -56,6 +60,7 @@ export class OrderDetailsComponent implements OnInit {
     this.user.getOrderDetails(orderID)
     .subscribe(
       data => {
+        this.orderExist = true;
         this.name = data.orderDetails.name;
         this.shippingAddress = data.orderDetails.address;
         this.orders = data.orderDetails.cart.items;
@@ -64,7 +69,10 @@ export class OrderDetailsComponent implements OnInit {
         //console.log(data.orderDetails);
 
       },
-      err => {},
+      err => {
+        console.log(err);
+        this.orderExist = false;
+      },
       () => console.log("order details complete")
     )
   }

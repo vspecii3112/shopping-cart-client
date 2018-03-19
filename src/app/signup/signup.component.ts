@@ -21,9 +21,12 @@ export class SignupComponent implements OnInit {
   private passwordMsg: string = '';
   private total_qty: number = 0;
 
-  constructor (private _userService: UserService, private shoppingCart: ShoppingCartService, private _router: Router, private _fb: FormBuilder) {
-
-  }
+  constructor (
+    private _userService: UserService,
+    private shoppingCart: ShoppingCartService,
+    private _router: Router,
+    private _fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.getTotalQuantity();

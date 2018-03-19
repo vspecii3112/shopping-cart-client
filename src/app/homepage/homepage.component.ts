@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
+import { HomepageIntroComponent } from './homepage-intro/homepage-intro.component';
+import { HomepageAboutComponent } from './homepage-about/homepage-about.component';
+import { HomepageShopComponent } from './homepage-shop/homepage-shop.component';
 import { LoadCoinInfoService } from '../services/load.coin.info.service';
 import { ShoppingCartService } from '../services/shopping.cart.service';
 import { coin } from '../objects/coin.class';
@@ -50,14 +53,22 @@ export class HomepageComponent implements OnInit{
   
     }
   
+    //this function checks if an input is an integer and greater than 0
+    isValidInput(input: number): boolean {
+      if (Number(input) < 1 || !Number.isInteger(Number(input))) {
+        return false;
+      }
+      return true;
+    }
+
     // The addItemToCart function handles the button event, when clicked, it will add to the shopping cart and store the number of items in the shopping cart to the variable total_qty
-    addItemToCart(coinID: string, itemQty: number) {   //click event handler
+    addItemToCart(event) {   //click event handler
       // Checks if the value entered is an integer and greater than 0
-      if (Number(itemQty) < 1 || !Number.isInteger(Number(itemQty))) {
+      if (!this.isValidInput(event.itemQty)){
         console.log('invalid value');
       }
       else {
-        this.shoppingCart.addItem(coinID, itemQty)
+        this.shoppingCart.addItem(event.coinID, event.itemQty)
           .subscribe(
             data => {
               this.total_qty = data.totalQuantity;

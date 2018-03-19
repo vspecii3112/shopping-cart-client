@@ -1,3 +1,4 @@
+/*
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -44,6 +45,7 @@ describe('Header Component', () => {
 
 
     }));
+    */
 
     /*
     beforeEach(() => {
@@ -61,4 +63,4 @@ describe('Header Component', () => {
         expect(el.textContent).toContain(comp.title);
     });
     */
-});
+//});

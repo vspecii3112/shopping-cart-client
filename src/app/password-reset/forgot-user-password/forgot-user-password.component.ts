@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
-import { UserService } from '../services/user.service';
-import { ShoppingCartService } from '../services/shopping.cart.service';
+import { HeaderComponent } from '../../header/header.component';
+import { UserService } from '../../services/user.service';
+import { ShoppingCartService } from '../../services/shopping.cart.service';
 
 @Component({
   selector: 'app-forgot-user-password',
@@ -18,7 +18,12 @@ export class ForgotUserPasswordComponent implements OnInit {
   private successMsg: string = "";
   private total_qty: number = 0;
 
-  constructor(private userService: UserService, private shoppingCart: ShoppingCartService, private _router: Router, private fb: FormBuilder) { }
+  constructor(
+    private userService: UserService,
+    private shoppingCart: ShoppingCartService,
+    private _router: Router,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.getTotalQuantity();
@@ -51,7 +56,7 @@ export class ForgotUserPasswordComponent implements OnInit {
 
   resetPassword(_forgotPwForm: any) {
     this.clearMsg();
-    console.log(_forgotPwForm);
+    //console.log(_forgotPwForm);
     if (_forgotPwForm.controls.email.errors) {
       if (_forgotPwForm.controls.email.errors.required) {
         this.emailMsg = "Email is required";

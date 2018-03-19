@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
-import { ShoppingCartService } from '../services/shopping.cart.service';
-import { UserService } from '../services/user.service';
+import { HeaderComponent } from '../../header/header.component';
+import { ShoppingCartService } from '../../services/shopping.cart.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-purchase-history',
@@ -12,8 +12,10 @@ import { UserService } from '../services/user.service';
 
 export class PurchaseHistoryComponent implements OnInit {
 
-  constructor(private shoppingCart: ShoppingCartService, private user: UserService, private _router: Router) {
-  }
+  constructor(
+    private shoppingCart: ShoppingCartService,
+    private user: UserService,
+    private _router: Router) {}
   
   ngOnInit() {
       this.getTotalQuantity();

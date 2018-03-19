@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { ShoppingCartService } from '../services/shopping.cart.service';
 import { UserService } from '../services/user.service';
+
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from "../store/model";
 
 @Component({
   selector: 'app-login',
@@ -22,9 +25,13 @@ export class LoginComponent implements OnInit{
 
 
 
-  constructor (private userService: UserService, private shoppingCart: ShoppingCartService, private _router: Router, private fb: FormBuilder, private next: ActivatedRoute) {
-
-  }
+  constructor (
+    private userService: UserService,
+    private shoppingCart: ShoppingCartService,
+    private _router: Router,
+    private fb: FormBuilder,
+    private ngRedux: NgRedux<IAppState>
+    ) {}
 
   ngOnInit() {
     this.createForm();
@@ -70,6 +77,8 @@ export class LoginComponent implements OnInit{
     else {
       this.userService.loginfn(_loginForm.controls.username.value, _loginForm.controls.password.value)
       .subscribe(data => {
+        this.ngRedux.dispatch({type: "LOGIN"});
+
         this.redirectURL = sessionStorage.getItem('redirectURL') || "/home";
         this._router.navigate([this.redirectURL]);
         sessionStorage.removeItem('redirectURL');

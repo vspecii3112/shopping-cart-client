@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
+import { CheckoutOrderdetailsComponent } from './checkout-orderdetails/checkout-orderdetails.component';
+import { CheckoutItemsComponent } from './checkout-items/checkout-items.component';
+
 import { ShoppingCartService } from '../services/shopping.cart.service';
 
 declare var Stripe: any;
@@ -16,6 +19,7 @@ export class CheckoutComponent implements OnInit{
 
     //model driven form
     private shoppingCartCheckoutForm: FormGroup;
+
     private errorMsg: string = "";
     private cardNumberMsg: string = "";
     private cardExpiryMsg: string = "";
@@ -47,15 +51,18 @@ export class CheckoutComponent implements OnInit{
       addressZip: '',
       addressCountry: ''
     }
-    constructor (private shoppingcart: ShoppingCartService, private _router: Router, private _fb: FormBuilder) {
-    }
+    constructor (
+      private shoppingcart: ShoppingCartService,
+      private _router: Router,
+      private _fb: FormBuilder
+    ) {}
   
     ngOnInit() {
       this.checkCart();
-      this.initCard();
       this.createForm();
+      this.initCard();
     }
-  
+
     createForm() {
       this.shoppingCartCheckoutForm = this._fb.group({
         name: ["", Validators.required],
@@ -145,6 +152,7 @@ export class CheckoutComponent implements OnInit{
 
     createToken(_shoppingCartCheckoutForm: any) {
       this.clearMsg();
+      
       if(!_shoppingCartCheckoutForm.valid){
         if (_shoppingCartCheckoutForm.value.name == "") {
           this.nameMsg = "Full Name is required";
@@ -222,6 +230,7 @@ export class CheckoutComponent implements OnInit{
           }
         });
       }
+      
     }
     
   }

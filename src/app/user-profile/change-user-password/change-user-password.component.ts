@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
-import { UserService } from '../services/user.service';
-import { ShoppingCartService } from '../services/shopping.cart.service';
+import { HeaderComponent } from '../../header/header.component';
+import { UserService } from '../../services/user.service';
+import { ShoppingCartService } from '../../services/shopping.cart.service';
 
 @Component({
   selector: 'app-change-user-password',
@@ -20,8 +20,11 @@ export class ChangeUserPasswordComponent implements OnInit {
   private changePwForm: FormGroup;
   private total_qty: number = 0;
 
-  constructor (private _userService: UserService, private shoppingCart: ShoppingCartService, private _router: Router, private fb: FormBuilder) {
-  }
+  constructor (
+    private _userService: UserService,
+    private shoppingCart: ShoppingCartService,
+    private _router: Router,
+    private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
@@ -57,7 +60,7 @@ export class ChangeUserPasswordComponent implements OnInit {
   }
   
   changePw(_changePwForm: any) {
-    console.log(_changePwForm);
+    //console.log(_changePwForm);
 
     this.clearMsg();
 

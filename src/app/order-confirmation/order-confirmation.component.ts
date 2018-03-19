@@ -26,12 +26,15 @@ export class OrderConfirmationComponent implements OnInit {
   private date: string = '';
   private total_qty: number = 0;    //stores the number of items in the variable and this number is shown beside the shopping cart link
 
-  constructor( private user: UserService, private shoppingCart: ShoppingCartService, private _activatedRoute: ActivatedRoute) {
-    this._activatedRoute.params.subscribe( params => {
-      this.orderID = params.id;
-      //console.log(this.orderID);
-    });
-  }
+  constructor(
+    private user: UserService,
+    private shoppingCart: ShoppingCartService,
+    private _activatedRoute: ActivatedRoute) {
+      this._activatedRoute.params.subscribe( params => {
+        this.orderID = params.id;
+        //console.log(this.orderID);
+      });
+    }
 
   ngOnInit() {
     this.getTotalQuantity();
